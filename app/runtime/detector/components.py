@@ -10,9 +10,7 @@ class Component(ABC):
     """
 
     def __init__(self, config):
-        self.config = config
         self.context = None
-
     
     def execute(self, context):
         """
@@ -36,7 +34,6 @@ class Component(ABC):
             except Exception as e:
                 raise e
 
-
     def write_context(self):
         """
         Updates appropriate context variables with updated component class attributes.
@@ -48,7 +45,6 @@ class Component(ABC):
                 self.context.write(ctxt, val)
             except Exception as e:
                 raise e
-
 
     @abstractmethod
     def process(self):
@@ -73,12 +69,20 @@ class PreProcessor(Component):
 
     @property
     def image(self):
-        return self._image
+        """
+        Getter method for image.
+        """
 
+        return self._image
+    
     @property
     def blob(self):
+        """
+        Getter method for blob.
+        """
+
         if self._image is None:
-            print("Input Image.")
+            raise Exception("No image found.")
         if self._blob is None:
             self.process()
             return self._blob
@@ -86,14 +90,14 @@ class PreProcessor(Component):
 
     @image.setter
     def image(self, image):
+        """
+        Setter method for image.
+        """
+
         self._image = image
 
-    @blob.setter
-    def blob(self, blob):
-        self._blob = blob
-
     def process(self):
-        self.blob = cv2.dnn.blobFromImage(
+        self._blob = cv2.dnn.blobFromImage(
             self.image,
             self.scale,
             self.size,
