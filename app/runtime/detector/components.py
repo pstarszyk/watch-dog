@@ -1,5 +1,9 @@
+from __future__ import annotations
+
 from abc import ABC
 from abc import abstractmethod
+
+from context import Context
 
 import cv2
 
@@ -9,10 +13,11 @@ class Component(ABC):
     Abstract class for all detector components.
     """
 
-    def __init__(self, config):
+    def __init__(self, config=None):
+        self.config = None
         self.context = None
     
-    def execute(self, context):
+    def execute(self, context: Context) -> None:
         """
         Envelope method for process() at runtime.
         """
@@ -22,7 +27,7 @@ class Component(ABC):
         self.process()
         self.write_context()
 
-    def read_context(self):
+    def read_context(self) -> None:
         """
         Declares component class attributes with appropriate context variables. 
         """
@@ -34,7 +39,7 @@ class Component(ABC):
             except Exception as e:
                 raise e
 
-    def write_context(self):
+    def write_context(self) -> None:
         """
         Updates appropriate context variables with updated component class attributes.
         """
@@ -47,7 +52,7 @@ class Component(ABC):
                 raise e
 
     @abstractmethod
-    def process(self):
+    def process(self) -> None:
         """
         Main logic implemented by each component. 
         """
@@ -63,7 +68,8 @@ class PreProcessor(Component):
     swapRB: bool  = True
     crop:   bool  = False
 
-    def __init__(self):
+    def __init__(self, config=None):
+        super().__init__(config)
         self._blob = None
         self._image = None        
 
