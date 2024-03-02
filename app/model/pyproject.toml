@@ -1,0 +1,28 @@
+[project]
+name = "object-detection-model"
+version = "0.0.1"
+authors = [
+  { name="Peter Starszyk", email="pstarszyk@gmail.com" },
+]
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3"
+]
+dependencies = [
+    "opencv-python",
+    "numpy"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = [
+    "model",
+    "model.data"
+]
+include-package-data = true
+
+[tool.setuptools.package-data]
+model = [
+    "data/*"
+]
