@@ -2,10 +2,9 @@ from __future__ import annotations
 
 from abc import ABC
 from abc import abstractmethod
-
-from context import Context
-
 import cv2
+
+from app.runtime.detector.context import Context
 
 
 class Component(ABC):
@@ -13,8 +12,8 @@ class Component(ABC):
     Abstract class for all detector components.
     """
 
-    def __init__(self, config=None):
-        self.config = None
+    def __init__(self, config):
+        self.config = config
         self.context = None
     
     def execute(self, context: Context) -> None:
@@ -50,6 +49,15 @@ class Component(ABC):
                 self.context.write(ctxt, val)
             except Exception as e:
                 raise e
+    
+    def initialize_configurations(self, key: str) -> None:
+        """
+        Initializes configuration attributes.
+        """
+
+        schema = getattr(self.config, key)
+        for key, val in schema.__dict__.items():
+            setattr(self, key, val) 
 
     @abstractmethod
     def process(self) -> None:
@@ -61,17 +69,12 @@ class Component(ABC):
 
 
 class PreProcessor(Component):
-    
-    scale:  float = 1.0/255
-    size:   tuple = (416, 416)
-    mean:   tuple = (0, 0, 0)
-    swapRB: bool  = True
-    crop:   bool  = False
-
-    def __init__(self, config=None):
+ 
+    def __init__(self, config):
         super().__init__(config)
+        self.initialize_configurations('preprocessor_config')
         self._blob = None
-        self._image = None        
+        self._image = None
 
     @property
     def image(self):

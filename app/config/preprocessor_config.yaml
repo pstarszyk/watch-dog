@@ -1,0 +1,5 @@
+scale: 1/255
+size: (416, 416)
+mean: (0, 0, 0)
+swapRB: True
+crop: False
