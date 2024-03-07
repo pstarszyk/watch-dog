@@ -1,6 +1,6 @@
 import os
-from multiprocessing.managers import BaseManager
 from multiprocessing import Queue
+from multiprocessing.managers import BaseManager
 
 
 class BrokerManager(BaseManager):
