@@ -1,3 +1,0 @@
-recursive-include model.data *.names
-recursive-include model.data *.cfg
-recursive-include model.data *.weights
