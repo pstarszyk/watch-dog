@@ -48,16 +48,18 @@ class Broker:
         Method that puts messages to shared queue. 
         """
 
-        if self.queue_proxy is not None:
-            self.queue_proxy.put(msg)
+        if self.queue_proxy is None:
+            self.connect()
+        self.queue_proxy.put(msg)
 
     def get(self):
         """
         Method that gets messages from shared queue. 
         """
 
-        if self.queue_proxy is not None:
-            return self.queue_proxy.get()
+        if self.queue_proxy is None:
+            self.connect()
+        return self.queue_proxy.get()
     
     def _init_manager(self):
         """
