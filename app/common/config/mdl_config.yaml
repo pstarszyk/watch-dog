@@ -1,0 +1,3 @@
+weights: yolov3.weights
+config: yolov3.cfg
+classes: coco.names

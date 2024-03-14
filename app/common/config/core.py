@@ -20,6 +20,16 @@ class PreProcessorConfig(BaseModel):
     crop:                   bool
 
 
+class ModelConfig(BaseModel):
+    """
+    Model config.
+    """
+
+    weights:                str
+    config:                 str
+    classes:                str
+
+
 class PipelineConfig(BaseModel):
     """
     Pipeline orchestrator config.
@@ -34,7 +44,7 @@ class Config(BaseModel):
     """
 
     preprocessor_config:    PreProcessorConfig 
-    #pipeline_config:        PipelineConfig
+    mdl_config:             ModelConfig
 
 
 def fetch_config_from_yaml(path: Path) -> Dict[str, YAML]:
@@ -63,11 +73,11 @@ def create_and_validate_config() -> Config:
     Run validation on config values.
     """
 
-    path = Path(os.environ.get("CONFIG_PATH"))
+    path = Path(__file__).resolve().parent
     parsed_configs = fetch_config_from_yaml(path)
 
     _config = Config(
-        preprocessor_config=PreProcessorConfig(**parsed_configs["preprocessor_config"])
-        #pipeline_config=PipelineConfig(**parsed_configs["pipeline_config"].data)
+        preprocessor_config=PreProcessorConfig(**parsed_configs["preprocessor_config"]),
+        mdl_config=ModelConfig(**parsed_configs["mdl_config"])
     )
     return _config
