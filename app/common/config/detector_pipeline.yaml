@@ -1,0 +1,32 @@
+components:
+  PreProcessor:
+    module: app.detector.components
+    init:
+      scale: static.config.preprocessor.scale
+      size: static.config.preprocessor.size
+      mean: static.config.preprocessor.mean
+      swapRB: static.config.preprocessor.swapRB
+      crop: static.config.preprocessor.crop
+    input:
+      _blob: dynamic.image
+    output:
+      _image: dynamic.blob
+  ObjectDetector:
+    module: app.detector.components
+    init:
+      _model: static.model
+    input:
+      _blob: dynamic.blob
+    output:
+      _outs: dynamic.outs
+      _max_confidence: dynamic.max_confidence
+  EventSender:
+    module: app.detector.components
+    init:
+      _broker: static.broker
+      _threshold: static.config.event_sender.threshold
+    input:
+      _timestamp: dynamic.timestamp
+      _image: dynamic.image
+      _outs: dynamic.outs
+      _max_confidence: dynamic.max_confidence

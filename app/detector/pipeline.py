@@ -7,7 +7,7 @@ class Pipeline:
     Pipeline orchestrator. 
     """
 
-    def __init__(self, config, context):
+    def __init__(self, context):
         self.config = config 
         self.context = context
         self.components = []
@@ -18,6 +18,9 @@ class Pipeline:
         """
         Creates pipeline defined by config.
         """
+
+        # TODO: add config to context
+        # initialize all components with the info from pipeline config "init"
 
         for component_cls, component_cfg in self.config.pipeline.components.items():
             module = import_module(component_cfg['module'])
