@@ -2,11 +2,11 @@ components:
   PreProcessor:
     module: app.detector.components
     init:
-      scale: static.config.preprocessor.scale
-      size: static.config.preprocessor.size
-      mean: static.config.preprocessor.mean
-      swapRB: static.config.preprocessor.swapRB
-      crop: static.config.preprocessor.crop
+      scale: static.config.preprocessor_config.scale
+      size: static.config.preprocessor_config.size
+      mean: static.config.preprocessor_config.mean
+      swapRB: static.config.preprocessor_config.swapRB
+      crop: static.config.preprocessor_config.crop
     input:
       _blob: dynamic.image
     output:
@@ -24,7 +24,7 @@ components:
     module: app.detector.components
     init:
       _broker: static.broker
-      _threshold: static.config.event_sender.threshold
+      #_threshold: static.config.event_sender.threshold
     input:
       _timestamp: dynamic.timestamp
       _image: dynamic.image

@@ -30,7 +30,7 @@ class ModelConfig(BaseModel):
     classes:                str
 
 
-class PipelineConfig(BaseModel):
+class DetectorPipelineConfig(BaseModel):
     """
     Pipeline orchestrator config.
     """
@@ -43,8 +43,9 @@ class Config(BaseModel):
     Master config object.
     """
 
-    preprocessor_config:    PreProcessorConfig 
-    mdl_config:             ModelConfig
+    preprocessor_config:            PreProcessorConfig 
+    mdl_config:                     ModelConfig
+    detector_pipeline_config:       DetectorPipelineConfig
 
 
 def fetch_config_from_yaml(path: Path) -> Dict[str, YAML]:
@@ -77,6 +78,7 @@ def create_and_validate_config() -> Config:
     parsed_configs = fetch_config_from_yaml(path)
 
     _config = Config(
+        detector_pipeline_config=DetectorPipelineConfig(**parsed_configs["detector_pipeline_config"]),
         preprocessor_config=PreProcessorConfig(**parsed_configs["preprocessor_config"]),
         mdl_config=ModelConfig(**parsed_configs["mdl_config"])
     )
