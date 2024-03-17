@@ -14,7 +14,7 @@ components:
   ObjectDetector:
     module: app.detector.components
     init:
-      _model: static.model
+      model: static.model
     input:
       _blob: dynamic.blob
     output:
@@ -23,8 +23,8 @@ components:
   EventSender:
     module: app.detector.components
     init:
-      _broker: static.broker
-      #_threshold: static.config.event_sender.threshold
+      broker: static.broker
+      threshold: static.config.event_sender_config.threshold
     input:
       _timestamp: dynamic.timestamp
       _image: dynamic.image

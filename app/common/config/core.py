@@ -38,6 +38,14 @@ class DetectorPipelineConfig(BaseModel):
     components:             Dict[str, Dict]
 
 
+class EventSenderConfig(BaseModel):
+    """
+    Event Sender config.
+    """
+
+    threshold:              float
+
+
 class Config(BaseModel):
     """
     Master config object.
@@ -46,6 +54,7 @@ class Config(BaseModel):
     preprocessor_config:            PreProcessorConfig 
     mdl_config:                     ModelConfig
     detector_pipeline_config:       DetectorPipelineConfig
+    event_sender_config:            EventSenderConfig
 
 
 def fetch_config_from_yaml(path: Path) -> Dict[str, YAML]:
@@ -80,6 +89,7 @@ def create_and_validate_config() -> Config:
     _config = Config(
         detector_pipeline_config=DetectorPipelineConfig(**parsed_configs["detector_pipeline_config"]),
         preprocessor_config=PreProcessorConfig(**parsed_configs["preprocessor_config"]),
-        mdl_config=ModelConfig(**parsed_configs["mdl_config"])
+        mdl_config=ModelConfig(**parsed_configs["mdl_config"]), 
+        event_sender_config=EventSenderConfig(**parsed_configs["event_sender_config"])
     )
     return _config
