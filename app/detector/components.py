@@ -65,7 +65,7 @@ class PreProcessor(Component):
 
     def run(self):
         self._blob = cv2.dnn.blobFromImage(
-            self.image,
+            self._image,
             self.scale,
             self.size,
             self.mean,
@@ -84,7 +84,7 @@ class ObjectDetector(Component):
         # dynamic
         self._blob = None
         self._outs = None
-        self._max_confidence = 0 # return the max confidence of all desired classes
+        self._max_confidence = 1 # return the max confidence of all desired classes
 
     @property
     def blob(self):
@@ -117,7 +117,7 @@ class EventSender(Component):
         self._image = None
         self._outs = None
         self._event = None
-        self._max_confidence = 0
+        self._max_confidence = 1
 
     @property
     def timestamp(self):
