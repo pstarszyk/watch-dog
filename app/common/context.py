@@ -46,4 +46,10 @@ class Context:
         Writes variable to context.
         """
 
-        self.dynamic.update({key: val})
+        path = key.split('.')
+        if len(path) == 1:
+            setattr(self, key, val)
+        if path[0] == 'static':
+            self.static.update({path[1]: val})
+        if path[0] == 'dynamic':
+            self.dynamic.update({path[1]: val})
