@@ -8,9 +8,9 @@ components:
       swapRB: static.config.preprocessor_config.swapRB
       crop: static.config.preprocessor_config.crop
     input:
-      _blob: dynamic.image
+      _image: dynamic.image
     output:
-      _image: dynamic.blob
+      _blob: dynamic.blob
   ObjectDetector:
     module: app.detector.components
     init:

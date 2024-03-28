@@ -64,7 +64,7 @@ def fetch_config_from_yaml(path: Path) -> Dict[str, YAML]:
 
     parsed_configs = {}
     for config_file_path in glob.glob(str(path / "*.yaml")):
-        config_name = config_file_path.split('/')[-1:][0].split('.')[0]
+        config_name = Path(config_file_path).name.split(".")[0]
         try:
             with open(config_file_path, "r") as config_file:
                 parsed_config = load(config_file.read()).data
